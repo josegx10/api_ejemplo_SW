@@ -1,11 +1,14 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-const filmsSchema = new mongoose.Schema({
-    title: String , // titulo
+const filmsSchema = new mongoose.Schema(
+  {
+    title: String, // titulo
     director: String, // director
-    producer: String, // productor  
-},{
-    timestamps: true
-});
+    producer: String, // productor
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export default mongoose.model('Film', filmsSchema);
+export default mongoose.model("Film", filmsSchema);

@@ -1,5 +1,11 @@
 import router from "./router.js";
-import { getPeoples, getPeople, postPeople, putPeople, deletePeople } from "../controllers/people.controller.js";
+import {
+  getPeoples,
+  getPeople,
+  postPeople,
+  putPeople,
+  deletePeople,
+} from "../controllers/people.controller.js";
 
 const routerPeople = router;
 routerPeople.get("/people", getPeoples);
