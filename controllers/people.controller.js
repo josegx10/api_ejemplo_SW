@@ -10,13 +10,13 @@ export const getPeoples = async (req, res) => {
       count: cont,
       next:
         perPage * page < cont
-          ? `http://localhost:4000/api/people/?search=${
+          ? `http://192.168.1.162:4000/api/people/?search=${
               req.query.search
             }&page=${+page + 1}`
           : null,
       previous:
         page > 1
-          ? `http://localhost:4000/api/people/?search=${
+          ? `http://192.168.1.162:4000/api/people/?search=${
               req.query.search
             }&page=${page - 1}`
           : null,
@@ -29,12 +29,13 @@ export const getPeoples = async (req, res) => {
     const cont = await People.find().count();
     let peoples = {
       count: cont,
+      nPage: +page,
       next:
         perPage * page < cont
-          ? `http://localhost:4000/api/people/?page=${+page + 1}`
+          ? `http://192.168.1.162:4000/api/people/?page=${+page + 1}`
           : null,
       previous:
-        page > 1 ? `http://localhost:4000/api/people/?page=${page - 1}` : null,
+        page > 1 ? `http://192.168.1.162:4000/api/people/?page=${page - 1}` : null,
       results: await People.find()
         .skip(perPage * page - perPage)
         .limit(perPage),
@@ -54,7 +55,7 @@ export const postPeople = async (req, res) => {
   console.log(req.body);
   const {
     name,
-    heigth,
+    height,
     mass,
     hair_color,
     skin_color,
@@ -69,7 +70,7 @@ export const postPeople = async (req, res) => {
   } = req.body;
   const people = new People({
     name,
-    heigth,
+    height,
     mass,
     hair_color,
     skin_color,
@@ -97,5 +98,8 @@ export const deletePeople = async (req, res) => {
   const deletedTask = await People.findByIdAndRemove(req.params.id);
   if (!deletedTask)
     return res.status(404).json({ message: "People not found" });
-  return res.sendStatus(204).json({ message: "People Elimited" });
+  return res.json({
+    message: "People Eliminate",
+    result: deletedTask
+  })
 };
